@@ -1,0 +1,12 @@
+{
+	"name": "Masteruber",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "masteruber",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": []
+	}
+}
