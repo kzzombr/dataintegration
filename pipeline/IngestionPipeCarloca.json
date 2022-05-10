@@ -16,8 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "MySqlSource",
-						"query": "SELECT * FROM LOC_AGENCIA"
+						"type": "MySqlSource"
 					},
 					"sink": {
 						"type": "ParquetSink",
@@ -41,7 +40,10 @@
 				"inputs": [
 					{
 						"referenceName": "Carloca",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"tableName": "loc_agencia"
+						}
 					}
 				],
 				"outputs": [
