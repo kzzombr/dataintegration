@@ -15,6 +15,10 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@activity('CarlocaIngestion').output",
+						"type": "Expression"
+					},
 					"isSequential": true,
 					"activities": [
 						{
@@ -58,7 +62,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"tableName": {
-											"value": "items()",
+											"value": "@activity('Lookup1').output",
 											"type": "Expression"
 										}
 									}
@@ -71,7 +75,10 @@
 									"parameters": {
 										"container": "ingestion",
 										"folder": "carloca",
-										"file": "loc_agencia.parquet"
+										"file": {
+											"value": "@CONCAT(item(),'.parquet')",
+											"type": "Expression"
+										}
 									}
 								}
 							]
