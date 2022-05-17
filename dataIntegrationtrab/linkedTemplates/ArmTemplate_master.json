@@ -1,0 +1,84 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Nome do Data Factory",
+			"defaultValue": "dataIntegrationtrab"
+		},
+		"DLIngestion_accountKey": {
+			"type": "secureString",
+			"metadata": "Cadeia de caracteres segura para 'accountKey' de 'DLIngestion'"
+		},
+		"carloca_connectionString": {
+			"type": "secureString",
+			"metadata": "Cadeia de caracteres segura para 'connectionString' de 'carloca'"
+		},
+		"carloca2_connectionString": {
+			"type": "secureString",
+			"metadata": "Cadeia de caracteres segura para 'connectionString' de 'carloca2'"
+		},
+		"indicadorTendencias_connectionString": {
+			"type": "secureString",
+			"metadata": "Cadeia de caracteres segura para 'connectionString' de 'indicadorTendencias'"
+		},
+		"masteruber_connectionString": {
+			"type": "secureString",
+			"metadata": "Cadeia de caracteres segura para 'connectionString' de 'masteruber'"
+		},
+		"DLIngestion_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://kenzostorage123.dfs.core.windows.net"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI para a conta de armazenamento contendo os modelos do ARM vinculados"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Token SAS para a conta de armazenamento contendo modelos do ARM vinculados"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "dataIntegrationtrab_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"DLIngestion_accountKey": {
+						"value": "[parameters('DLIngestion_accountKey')]"
+					},
+					"carloca_connectionString": {
+						"value": "[parameters('carloca_connectionString')]"
+					},
+					"carloca2_connectionString": {
+						"value": "[parameters('carloca2_connectionString')]"
+					},
+					"indicadorTendencias_connectionString": {
+						"value": "[parameters('indicadorTendencias_connectionString')]"
+					},
+					"masteruber_connectionString": {
+						"value": "[parameters('masteruber_connectionString')]"
+					},
+					"DLIngestion_properties_typeProperties_url": {
+						"value": "[parameters('DLIngestion_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
