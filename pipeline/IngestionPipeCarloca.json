@@ -104,9 +104,10 @@
 						"query": "SELECT TABLE_NAME from information_schema.tables\nwhere table_schema = 'carloca'"
 					},
 					"dataset": {
-						"referenceName": "Carloca",
+						"referenceName": "MySqlTable1",
 						"type": "DatasetReference"
-					}
+					},
+					"firstRowOnly": false
 				}
 			}
 		],
