@@ -505,6 +505,958 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "loc_item_locacao",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MySqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "loc_item_locacao"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetIngestion",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_item_locacao.parquet"
+						}
+					}
+				]
+			},
+			{
+				"name": "loc_grupo",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MySqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "loc_grupo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetIngestion",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_grupo.parquet"
+						}
+					}
+				]
+			},
+			{
+				"name": "loc_gerente",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MySqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "loc_gerente"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetIngestion",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_gerente.parquet"
+						}
+					}
+				]
+			},
+			{
+				"name": "loc_funcionario",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MySqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "loc_funcionario"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetIngestion",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_funcionario.parquet"
+						}
+					}
+				]
+			},
+			{
+				"name": "loc_Fone_Cliente",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MySqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "loc_Fone_Cliente"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetIngestion",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_Fone_Cliente.parquet"
+						}
+					}
+				]
+			},
+			{
+				"name": "loc_fabricante",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MySqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "loc_fabricante"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetIngestion",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_fabricante.parquet"
+						}
+					}
+				]
+			},
+			{
+				"name": "loc_estado",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MySqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "loc_estado"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetIngestion",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_estado.parquet"
+						}
+					}
+				]
+			},
+			{
+				"name": "loc_diretor",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MySqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "loc_diretor"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetIngestion",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_diretor.parquet"
+						}
+					}
+				]
+			},
+			{
+				"name": "loc_depto",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MySqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "loc_depto"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetIngestion",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_depto.parquet"
+						}
+					}
+				]
+			},
+			{
+				"name": "loc_cor",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MySqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "loc_cor"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetIngestion",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_cor.parquet"
+						}
+					}
+				]
+			},
+			{
+				"name": "loc_cliente",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MySqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "loc_cliente"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetIngestion",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_cliente.parquet"
+						}
+					}
+				]
+			},
+			{
+				"name": "loc_cidade",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MySqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "loc_cidade"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetIngestion",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_cidade.parquet"
+						}
+					}
+				]
+			},
+			{
+				"name": "loc_chefe",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MySqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "loc_chefe"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetIngestion",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_chefe.parquet"
+						}
+					}
+				]
+			},
+			{
+				"name": "loc_cargo",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MySqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "loc_cargo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetIngestion",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_cargo.parquet"
+						}
+					}
+				]
+			},
+			{
+				"name": "loc_banco",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MySqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "loc_banco"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetIngestion",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_banco.parquet"
+						}
+					}
+				]
+			},
+			{
+				"name": "loc_agencia",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MySqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "loc_agencia"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetIngestion",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_agencia.parquet"
+						}
+					}
+				]
+			},
+			{
+				"name": "LOC_AGE_BCO",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MySqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "LOC_AGE_BCO"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ParquetIngestion",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "LOC_AGE_BCO.parquet"
+						}
+					}
+				]
 			}
 		],
 		"annotations": []
