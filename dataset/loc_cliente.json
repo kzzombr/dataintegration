@@ -1,0 +1,42 @@
+{
+	"name": "loc_cliente",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DW",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "@dataset().file.parquet",
+				"folderPath": "carloca",
+				"fileSystem": "dw"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "Cd_cliente",
+				"type": "INT32"
+			},
+			{
+				"name": "Nm_Cliente",
+				"type": "UTF8"
+			},
+			{
+				"name": "Cd_Tp_Cliente",
+				"type": "INT32"
+			},
+			{
+				"name": "Nr_Estrelas",
+				"type": "INT32"
+			},
+			{
+				"name": "Nr_Habilitacao",
+				"type": "INT32"
+			}
+		]
+	}
+}

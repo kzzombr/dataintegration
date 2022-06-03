@@ -1,0 +1,55 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "loc_cliente",
+						"type": "DatasetReference"
+					},
+					"name": "loccliente"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "loc_cliente",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          Cd_cliente as integer,",
+				"          Nm_Cliente as string,",
+				"          Cd_Tp_Cliente as integer,",
+				"          Nr_Estrelas as integer,",
+				"          Nr_Habilitacao as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> loccliente",
+				"loccliente sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Cd_cliente as integer,",
+				"          Nm_Cliente as string,",
+				"          Cd_Tp_Cliente as integer,",
+				"          Nr_Estrelas as integer,",
+				"          Nr_Habilitacao as integer",
+				"     ),",
+				"     format: 'parquet',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
+			]
+		}
+	}
+}
