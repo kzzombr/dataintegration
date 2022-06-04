@@ -2,7 +2,7 @@
 	"name": "loc_cliente",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "DW",
+			"referenceName": "DLIngestion",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
