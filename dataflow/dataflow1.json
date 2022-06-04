@@ -20,7 +20,7 @@
 					},
 					"name": "sink1",
 					"rejectedDataLinkedService": {
-						"referenceName": "DW",
+						"referenceName": "DLIngestion",
 						"type": "LinkedServiceReference"
 					}
 				}
