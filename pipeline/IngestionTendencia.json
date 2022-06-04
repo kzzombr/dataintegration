@@ -96,8 +96,16 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "Parquet1",
-									"type": "DatasetReference"
+									"referenceName": "ParquetIngestion",
+									"type": "DatasetReference",
+									"parameters": {
+										"container": "ingestion",
+										"folder": "tendencia",
+										"file": {
+											"value": "@concat(item().table_name.'.parquet')",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
