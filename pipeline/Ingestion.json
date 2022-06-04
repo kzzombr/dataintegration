@@ -39,7 +39,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_tp_combustivel"
@@ -95,7 +95,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_veiculo"
@@ -151,7 +151,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_tp_cliente"
@@ -207,7 +207,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_tp_automovel"
@@ -263,7 +263,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_proprietario"
@@ -319,7 +319,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_presidente"
@@ -375,7 +375,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_pedido_locacao"
@@ -431,7 +431,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_operadora"
@@ -487,7 +487,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_modelo"
@@ -543,7 +543,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_item_locacao"
@@ -599,7 +599,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_grupo"
@@ -655,7 +655,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_gerente"
@@ -711,7 +711,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_funcionario"
@@ -767,7 +767,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_Fone_Cliente"
@@ -823,7 +823,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_fabricante"
@@ -879,7 +879,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_estado"
@@ -935,7 +935,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_diretor"
@@ -991,7 +991,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_depto"
@@ -1047,7 +1047,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_cor"
@@ -1103,7 +1103,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_cliente"
@@ -1159,7 +1159,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_cidade"
@@ -1215,7 +1215,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_chefe"
@@ -1271,7 +1271,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_cargo"
@@ -1327,7 +1327,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_banco"
@@ -1383,7 +1383,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "loc_agencia"
@@ -1439,7 +1439,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySqlTable1",
+						"referenceName": "TabelaGenericaIngestion",
 						"type": "DatasetReference",
 						"parameters": {
 							"tablename": "LOC_AGE_BCO"
