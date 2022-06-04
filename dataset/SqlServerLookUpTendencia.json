@@ -1,0 +1,12 @@
+{
+	"name": "SqlServerLookUpTendencia",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "indicadorTendencias",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": []
+	}
+}

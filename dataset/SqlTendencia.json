@@ -8,19 +8,12 @@
 		"parameters": {
 			"tableName": {
 				"type": "string"
-			},
-			"schema": {
-				"type": "string"
 			}
 		},
 		"annotations": [],
 		"type": "SqlServerTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": {
-				"value": "@dataset().schema",
-				"type": "Expression"
-			},
 			"table": {
 				"value": "@dataset().tableName",
 				"type": "Expression"
