@@ -6,11 +6,7 @@
 		"type": "MySql",
 		"typeProperties": {
 			"connectionString": "server=129.213.131.233;port=400;database=carloca;user=root;sslmode=1;usesystemtruststore=0",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIyMjk3NTg1NS1lZGMxLTRjNTUtYWQ3Ni1lMDYyYTcxYjMwOGEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
-		},
-		"connectVia": {
-			"referenceName": "integrationRuntime1",
-			"type": "IntegrationRuntimeReference"
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQENCNjYxNTQ4LUVFQjAtNDQzQi1CRkM3LTgzMDk2NEVEOEY2MV8xYmNjYTQ4YS05ODBkLTQ4YTItOWQwYS1mNzZkYWUxMzU4NzEiDQp9"
 		}
 	}
 }
