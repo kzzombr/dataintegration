@@ -15,12 +15,9 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": {
-					"value": "@dataset().file",
-					"type": "Expression"
-				},
+				"fileName": "loc_cliente.parquet",
 				"folderPath": "carloca",
-				"fileSystem": "dw"
+				"fileSystem": "ingestion"
 			},
 			"compressionCodec": "snappy"
 		},
