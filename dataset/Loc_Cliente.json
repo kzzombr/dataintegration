@@ -1,5 +1,5 @@
 {
-	"name": "loc_cliente",
+	"name": "Loc_Cliente",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "DLIngestion",

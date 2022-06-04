@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "loc_cliente",
+						"referenceName": "Loc_Cliente",
 						"type": "DatasetReference"
 					},
 					"name": "cliente"
