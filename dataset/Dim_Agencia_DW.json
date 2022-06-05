@@ -1,0 +1,21 @@
+{
+	"name": "Dim_Agencia_DW",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DW",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dim_cliente",
+				"folderPath": "DW",
+				"fileSystem": "query"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
