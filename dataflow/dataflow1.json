@@ -18,14 +18,18 @@
 						"referenceName": "Dim_Cliente_DW",
 						"type": "DatasetReference"
 					},
-					"name": "sink1",
+					"name": "DimCliente",
 					"rejectedDataLinkedService": {
 						"referenceName": "DLIngestion",
 						"type": "LinkedServiceReference"
 					}
 				}
 			],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "select1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          Cd_cliente as integer,",
@@ -38,7 +42,16 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     format: 'parquet') ~> cliente",
-				"cliente sink(allowSchemaDrift: true,",
+				"cliente select(mapColumn(",
+				"          Cd_cliente,",
+				"          Nm_Cliente,",
+				"          Cd_Tp_Cliente,",
+				"          Nr_Estrelas,",
+				"          Nr_Habilitacao",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",
 				"     umask: 0022,",
@@ -46,7 +59,7 @@
 				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     saveOrder: 1) ~> sink1"
+				"     saveOrder: 1) ~> DimCliente"
 			]
 		}
 	}
