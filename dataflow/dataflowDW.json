@@ -134,9 +134,6 @@
 					"name": "SelectDimVeiculo"
 				},
 				{
-					"name": "SelectPedidoLoc"
-				},
-				{
 					"name": "idDimAgencia"
 				},
 				{
@@ -147,9 +144,6 @@
 				},
 				{
 					"name": "idDimFunc"
-				},
-				{
-					"name": "idFato"
 				},
 				{
 					"name": "join1"
@@ -177,6 +171,12 @@
 				},
 				{
 					"name": "SelectFato"
+				},
+				{
+					"name": "idFato"
+				},
+				{
+					"name": "select1"
 				}
 			],
 			"scriptLines": [
@@ -384,16 +384,6 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> SelectDimVeiculo",
-				"Fato select(mapColumn(",
-				"          Dt_Locacao,",
-				"          Qt_Dias,",
-				"          Vl_Total,",
-				"          Status,",
-				"          Dt_Retirada,",
-				"          Dt_Entrega",
-				"     ),",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> SelectPedidoLoc",
 				"JoinAgCidEst keyGenerate(output(idD_Agencia as long),",
 				"     startAt: 1L,",
 				"     stepValue: 1L) ~> idDimAgencia",
@@ -411,9 +401,6 @@
 				"Funcionario keyGenerate(output(idD_Funcionario as long),",
 				"     startAt: 1L,",
 				"     stepValue: 1L) ~> idDimFunc",
-				"SelectPedidoLoc keyGenerate(output(idF_Aluguel as long),",
-				"     startAt: 1L,",
-				"     stepValue: 1L) ~> idFato",
 				"Fato, Cliente join(Fato@Cd_Cliente == Cliente@Cd_cliente,",
 				"     joinType:'left',",
 				"     broadcast: 'auto')~> join1",
@@ -444,21 +431,41 @@
 				"join5, TratamentoTempo join(Fato@Nr_Pedido == SelectTempo@Nr_Pedido,",
 				"     joinType:'left',",
 				"     broadcast: 'auto')~> join6",
-				"join6 select(mapColumn(",
-				"          id_Pedido = Fato@Nr_Pedido,",
-				"          idD_Tempo = SelectTempo@Nr_Pedido,",
-				"          idD_Veiculo = Veiculo@Nr_Placa,",
-				"          idD_Funcionario = Fato@Cd_Func,",
-				"          idD_Cliente = Fato@Cd_Cliente,",
-				"          idD_Agencia = Fato@Cd_Agencia,",
-				"          Qt_Dias = Fato@Qt_Dias,",
-				"          Aluguel_Status = Fato@Status,",
-				"          Dt_Retirada = Fato@Dt_Retirada,",
-				"          Dt_Entrega = Fato@Dt_Entrega,",
-				"          Vl_Total",
+				"idFato select(mapColumn(",
+				"          idFato,",
+				"          idD_Cliente,",
+				"          idD_Agencia,",
+				"          idD_Func,",
+				"          idD_Veiculo,",
+				"          idD_Tempo,",
+				"          Dt_Retirada,",
+				"          Dt_Entrega,",
+				"          Qt_Dias,",
+				"          Status_Aluguel,",
+				"          Vl_Total,",
+				"          Nr_Pedido",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> SelectFato",
+				"select1 keyGenerate(output(idFato as long),",
+				"     startAt: 1L,",
+				"     stepValue: 1L) ~> idFato",
+				"join6 select(mapColumn(",
+				"          Nr_Pedido = Fato@Nr_Pedido,",
+				"          idD_Cliente = Fato@Cd_Cliente,",
+				"          idD_Agencia = Fato@Cd_Agencia,",
+				"          idD_Func = Fato@Cd_Func,",
+				"          idD_Veiculo = ItemPedido@Nr_Placa,",
+				"          idD_Tempo = SelectTempo@Nr_Pedido,",
+				"          Dt_Retirada = Fato@Dt_Retirada,",
+				"          Dt_Entrega = Fato@Dt_Entrega,",
+				"          Qt_Dias = Fato@Qt_Dias,",
+				"          Vl_Diaria = ItemPedido@Vl_Diaria,",
+				"          Status_Aluguel = Fato@Status,",
+				"          Vl_Total",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
 				"SelectCliAge sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",

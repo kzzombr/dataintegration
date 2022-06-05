@@ -1,5 +1,5 @@
 {
-	"name": "Dim_Cliente_DW",
+	"name": "Dim_Tempo_DW",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "DW",
@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "Dim_Cliente.parquet",
+				"fileName": "Dim_Tempo.parquet",
 				"folderPath": "DW",
 				"fileSystem": "query"
 			},
