@@ -19,6 +19,10 @@
 					"name": "Agencia"
 				},
 				{
+					"dataset": {
+						"referenceName": "Loc_Cidade",
+						"type": "DatasetReference"
+					},
 					"name": "Cidade"
 				},
 				{
@@ -36,7 +40,32 @@
 					"name": "Funcionario"
 				},
 				{
-					"name": "source1"
+					"dataset": {
+						"referenceName": "Loc_Modelo",
+						"type": "DatasetReference"
+					},
+					"name": "Modelo"
+				},
+				{
+					"dataset": {
+						"referenceName": "Loc_Pedido_Locacao",
+						"type": "DatasetReference"
+					},
+					"name": "PedidoLocacao"
+				},
+				{
+					"dataset": {
+						"referenceName": "Loc_Tp_Automovel",
+						"type": "DatasetReference"
+					},
+					"name": "TpAutomovel"
+				},
+				{
+					"dataset": {
+						"referenceName": "Loc_Veiculo",
+						"type": "DatasetReference"
+					},
+					"name": "Veiculo"
 				}
 			],
 			"sinks": [
@@ -50,14 +79,69 @@
 						"referenceName": "DLIngestion",
 						"type": "LinkedServiceReference"
 					}
+				},
+				{
+					"dataset": {
+						"referenceName": "Dim_Agencia_DW",
+						"type": "DatasetReference"
+					},
+					"name": "DimAgencia"
 				}
 			],
 			"transformations": [
 				{
-					"name": "select1"
+					"name": "SelectCliAge"
 				},
 				{
-					"name": "select2"
+					"name": "JoinCidEst"
+				},
+				{
+					"name": "JoinAgCidEst"
+				},
+				{
+					"name": "SelectCidEst"
+				},
+				{
+					"name": "SelectFunc"
+				},
+				{
+					"name": "SelectVeic"
+				},
+				{
+					"name": "JoinTpVeiculo"
+				},
+				{
+					"name": "SelectJoinTpVeic"
+				},
+				{
+					"name": "JoinVeicMod"
+				},
+				{
+					"name": "SelectDimVeiculo"
+				},
+				{
+					"name": "SelectPedidoLoc"
+				},
+				{
+					"name": "idDimAgencia"
+				},
+				{
+					"name": "SelectDimAgencia"
+				},
+				{
+					"name": "idDimCliente"
+				},
+				{
+					"name": "idDimFunc"
+				},
+				{
+					"name": "idFato"
+				},
+				{
+					"name": "join1"
+				},
+				{
+					"name": "join2"
 				}
 			],
 			"scriptLines": [
@@ -81,8 +165,15 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     format: 'parquet') ~> Agencia",
-				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> Cidade",
+				"source(output(",
+				"          Cd_Cidade as integer,",
+				"          Nm_Cidade as string,",
+				"          Cd_Estado as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> Cidade",
 				"source(output(",
 				"          Cd_Estado as integer,",
 				"          Nm_Estado as string,",
@@ -107,25 +198,166 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     format: 'parquet') ~> Funcionario",
-				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source1",
-				"Cliente select(mapColumn(",
-				"          Cd_cliente,",
+				"source(output(",
+				"          cd_Modelo as integer,",
+				"          Nm_Modelo as string,",
+				"          cd_Fabricante as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> Modelo",
+				"source(output(",
+				"          Nr_Pedido as integer,",
+				"          Dt_Locacao as timestamp,",
+				"          Cd_Cliente as integer,",
+				"          Cd_Agencia as integer,",
+				"          Qt_Dias as integer,",
+				"          Vl_Total as decimal(38,18),",
+				"          Status as string,",
+				"          Dt_Retirada as timestamp,",
+				"          Dt_Entrega as timestamp,",
+				"          Cd_Func as integer,",
+				"          Dt_Pagto as timestamp,",
+				"          Cd_Age_Bco as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> PedidoLocacao",
+				"source(output(",
+				"          cd_Tp_Automovel as integer,",
+				"          Nm_Tp_Automovel as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> TpAutomovel",
+				"source(output(",
+				"          Nr_Placa as string,",
+				"          Cd_Proprietario as integer,",
+				"          Nr_Chassis as string,",
+				"          Status as string,",
+				"          Km_Atual as integer,",
+				"          Tp_Automovel as integer,",
+				"          Tp_Combustivel as integer,",
+				"          cd_Modelo as integer,",
+				"          cd_cor as integer,",
+				"          cd_grupo as integer,",
+				"          Vl_Diaria as decimal(38,18)",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> Veiculo",
+				"idDimCliente select(mapColumn(",
+				"          idD_Cliente,",
 				"          Nm_Cliente,",
-				"          Cd_Tp_Cliente,",
 				"          Nr_Estrelas,",
 				"          Nr_Habilitacao",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select1",
-				"Agencia select(mapColumn(",
-				"          cd_Agencia,",
-				"          Nm_Agencia,",
-				"          cd_Cidade",
+				"     skipDuplicateMapOutputs: true) ~> SelectCliAge",
+				"Cidade, Estado join(Cidade@Cd_Estado == Estado@Cd_Estado,",
+				"     joinType:'inner',",
+				"     broadcast: 'auto')~> JoinCidEst",
+				"Agencia, SelectCidEst join(Agencia@cd_Cidade == SelectCidEst@Cd_Cidade,",
+				"     joinType:'left',",
+				"     broadcast: 'auto')~> JoinAgCidEst",
+				"JoinCidEst select(mapColumn(",
+				"          Cd_Cidade,",
+				"          Nm_Cidade,",
+				"          Cd_Estado = Cidade@Cd_Estado,",
+				"          Cd_Estado = Estado@Cd_Estado,",
+				"          Nm_Estado,",
+				"          Sigla_Estado",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select2",
-				"select1 sink(allowSchemaDrift: true,",
+				"     skipDuplicateMapOutputs: true) ~> SelectCidEst",
+				"idDimFunc select(mapColumn(",
+				"          Cd_Func,",
+				"          Nm_Func,",
+				"          Cd_Gerente,",
+				"          Nr_CPF,",
+				"          Vl_Perc_Comissao",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SelectFunc",
+				"Veiculo select(mapColumn(",
+				"          Nr_Placa,",
+				"          Nr_Chassis,",
+				"          Km_Atual,",
+				"          Tp_Automovel,",
+				"          cd_Modelo,",
+				"          Vl_Diaria",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SelectVeic",
+				"SelectVeic, TpAutomovel join(Tp_Automovel == cd_Tp_Automovel,",
+				"     joinType:'left',",
+				"     broadcast: 'auto')~> JoinTpVeiculo",
+				"JoinTpVeiculo select(mapColumn(",
+				"          Nr_Placa,",
+				"          Nr_Chassis,",
+				"          Km_Atual,",
+				"          Tp_Automovel,",
+				"          cd_Modelo,",
+				"          Vl_Diaria,",
+				"          cd_Tp_Automovel,",
+				"          Nm_Tp_Automovel",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SelectJoinTpVeic",
+				"SelectJoinTpVeic, Modelo join(SelectJoinTpVeic@cd_Modelo == Modelo@cd_Modelo,",
+				"     joinType:'inner',",
+				"     broadcast: 'auto')~> JoinVeicMod",
+				"JoinVeicMod select(mapColumn(",
+				"          Nr_Placa,",
+				"          Nr_Chassis,",
+				"          Km_Atual,",
+				"          Vl_Diaria,",
+				"          Nm_Modelo,",
+				"          Nm_Tp_Automovel",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SelectDimVeiculo",
+				"PedidoLocacao select(mapColumn(",
+				"          Dt_Locacao,",
+				"          Qt_Dias,",
+				"          Vl_Total,",
+				"          Status,",
+				"          Dt_Retirada,",
+				"          Dt_Entrega",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SelectPedidoLoc",
+				"JoinAgCidEst keyGenerate(output(idD_Agencia as long),",
+				"     startAt: 1L,",
+				"     stepValue: 1L) ~> idDimAgencia",
+				"idDimAgencia select(mapColumn(",
+				"          idD_Agencia,",
+				"          Nm_Agencia,",
+				"          Nm_Cidade,",
+				"          Sigla_Estado",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SelectDimAgencia",
+				"Cliente keyGenerate(output(idD_Cliente as long),",
+				"     startAt: 1L,",
+				"     stepValue: 1L) ~> idDimCliente",
+				"Funcionario keyGenerate(output(idD_Funcionario as long),",
+				"     startAt: 1L,",
+				"     stepValue: 1L) ~> idDimFunc",
+				"SelectPedidoLoc keyGenerate(output(idF_Aluguel as long),",
+				"     startAt: 1L,",
+				"     stepValue: 1L) ~> idFato",
+				"PedidoLocacao, Cliente join(PedidoLocacao@Cd_Cliente == Cliente@Cd_cliente,",
+				"     joinType:'left',",
+				"     broadcast: 'auto')~> join1",
+				"join1, Agencia join(PedidoLocacao@Cd_Agencia == Agencia@cd_Agencia,",
+				"     joinType:'inner',",
+				"     broadcast: 'auto')~> join2",
+				"SelectCliAge sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",
 				"     partitionFileNames:['dim_cliente'],",
@@ -135,7 +367,15 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     saveOrder: 0,",
-				"     partitionBy('hash', 1)) ~> DimCliente"
+				"     partitionBy('hash', 1)) ~> DimCliente",
+				"SelectDimAgencia sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> DimAgencia"
 			]
 		}
 	}
