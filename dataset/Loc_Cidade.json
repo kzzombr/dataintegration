@@ -1,0 +1,34 @@
+{
+	"name": "Loc_Cidade",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DLIngestion",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "loc_cidade.parquet",
+				"folderPath": "carloca",
+				"fileSystem": "ingestion"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "Cd_Cidade",
+				"type": "INT32"
+			},
+			{
+				"name": "Nm_Cidade",
+				"type": "UTF8"
+			},
+			{
+				"name": "Cd_Estado",
+				"type": "INT32"
+			}
+		]
+	}
+}
