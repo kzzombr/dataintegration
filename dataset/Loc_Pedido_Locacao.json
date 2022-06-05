@@ -1,0 +1,72 @@
+{
+	"name": "Loc_Pedido_Locacao",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DLIngestion",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "loc_pedido_locacao.parquet",
+				"folderPath": "organization",
+				"fileSystem": "outro"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "Nr_Pedido",
+				"type": "INT32"
+			},
+			{
+				"name": "Dt_Locacao",
+				"type": "INT96"
+			},
+			{
+				"name": "Cd_Cliente",
+				"type": "INT32"
+			},
+			{
+				"name": "Cd_Agencia",
+				"type": "INT32"
+			},
+			{
+				"name": "Qt_Dias",
+				"type": "INT32"
+			},
+			{
+				"name": "Vl_Total",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "Status",
+				"type": "UTF8"
+			},
+			{
+				"name": "Dt_Retirada",
+				"type": "INT96"
+			},
+			{
+				"name": "Dt_Entrega",
+				"type": "INT96"
+			},
+			{
+				"name": "Cd_Func",
+				"type": "INT32"
+			},
+			{
+				"name": "Dt_Pagto",
+				"type": "INT96"
+			},
+			{
+				"name": "Cd_Age_Bco",
+				"type": "INT32"
+			}
+		]
+	}
+}

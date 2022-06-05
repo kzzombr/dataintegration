@@ -1,0 +1,34 @@
+{
+	"name": "Loc_Modelo",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DLIngestion",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "loc_modelo.parquet",
+				"folderPath": "organization",
+				"fileSystem": "outro"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "cd_Modelo",
+				"type": "INT32"
+			},
+			{
+				"name": "Nm_Modelo",
+				"type": "UTF8"
+			},
+			{
+				"name": "cd_Fabricante",
+				"type": "INT32"
+			}
+		]
+	}
+}

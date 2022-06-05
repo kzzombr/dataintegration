@@ -1,0 +1,30 @@
+{
+	"name": "Loc_Tp_Automovel",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DLIngestion",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "loc_tp_automovel.parquet",
+				"folderPath": "organization",
+				"fileSystem": "outro"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "cd_Tp_Automovel",
+				"type": "INT32"
+			},
+			{
+				"name": "Nm_Tp_Automovel",
+				"type": "UTF8"
+			}
+		]
+	}
+}

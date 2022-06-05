@@ -1,0 +1,62 @@
+{
+	"name": "Loc_Funcionario",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DLIngestion",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "loc_funcionario.parquet",
+				"folderPath": "organization",
+				"fileSystem": "outro"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "Cd_Func",
+				"type": "INT32"
+			},
+			{
+				"name": "Nm_Func",
+				"type": "UTF8"
+			},
+			{
+				"name": "Dt_Inicio",
+				"type": "INT96"
+			},
+			{
+				"name": "Cd_Gerente",
+				"type": "INT32"
+			},
+			{
+				"name": "Nr_CPF",
+				"type": "INT32"
+			},
+			{
+				"name": "Vl_Salario",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "Vl_Perc_Comissao",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "Cd_Depto",
+				"type": "INT32"
+			},
+			{
+				"name": "Cd_Cargo",
+				"type": "INT32"
+			}
+		]
+	}
+}

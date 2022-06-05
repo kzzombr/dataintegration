@@ -20,6 +20,23 @@
 				},
 				{
 					"name": "Cidade"
+				},
+				{
+					"dataset": {
+						"referenceName": "Loc_Estado",
+						"type": "DatasetReference"
+					},
+					"name": "Estado"
+				},
+				{
+					"dataset": {
+						"referenceName": "Loc_Funcionario",
+						"type": "DatasetReference"
+					},
+					"name": "Funcionario"
+				},
+				{
+					"name": "source1"
 				}
 			],
 			"sinks": [
@@ -66,6 +83,32 @@
 				"     format: 'parquet') ~> Agencia",
 				"source(allowSchemaDrift: true,",
 				"     validateSchema: false) ~> Cidade",
+				"source(output(",
+				"          Cd_Estado as integer,",
+				"          Nm_Estado as string,",
+				"          Sigla_Estado as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> Estado",
+				"source(output(",
+				"          Cd_Func as integer,",
+				"          Nm_Func as string,",
+				"          Dt_Inicio as timestamp,",
+				"          Cd_Gerente as integer,",
+				"          Nr_CPF as integer,",
+				"          Vl_Salario as decimal(38,18),",
+				"          Vl_Perc_Comissao as decimal(38,18),",
+				"          Cd_Depto as integer,",
+				"          Cd_Cargo as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> Funcionario",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false) ~> source1",
 				"Cliente select(mapColumn(",
 				"          Cd_cliente,",
 				"          Nm_Cliente,",
