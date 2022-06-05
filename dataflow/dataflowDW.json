@@ -1,5 +1,5 @@
 {
-	"name": "dataflow1",
+	"name": "dataflowDW",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
@@ -17,6 +17,9 @@
 						"type": "DatasetReference"
 					},
 					"name": "Agencia"
+				},
+				{
+					"name": "Cidade"
 				}
 			],
 			"sinks": [
@@ -30,13 +33,6 @@
 						"referenceName": "DLIngestion",
 						"type": "LinkedServiceReference"
 					}
-				},
-				{
-					"dataset": {
-						"referenceName": "Dim_Agencia_DW",
-						"type": "DatasetReference"
-					},
-					"name": "sink1"
 				}
 			],
 			"transformations": [
@@ -68,6 +64,8 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     format: 'parquet') ~> Agencia",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false) ~> Cidade",
 				"Cliente select(mapColumn(",
 				"          Cd_cliente,",
 				"          Nm_Cliente,",
@@ -87,20 +85,14 @@
 				"select1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",
+				"     partitionFileNames:['dim_cliente'],",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     saveOrder: 1) ~> DimCliente",
-				"select2 sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     format: 'parquet',",
-				"     umask: 0022,",
-				"     preCommands: [],",
-				"     postCommands: [],",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     saveOrder: 0,",
+				"     partitionBy('hash', 1)) ~> DimCliente"
 			]
 		}
 	}
