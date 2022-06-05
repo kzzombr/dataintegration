@@ -51,7 +51,7 @@
 						"referenceName": "Loc_Pedido_Locacao",
 						"type": "DatasetReference"
 					},
-					"name": "PedidoLocacao"
+					"name": "Fato"
 				},
 				{
 					"dataset": {
@@ -66,6 +66,20 @@
 						"type": "DatasetReference"
 					},
 					"name": "Veiculo"
+				},
+				{
+					"dataset": {
+						"referenceName": "Loc_Item_Pedido",
+						"type": "DatasetReference"
+					},
+					"name": "ItemPedido"
+				},
+				{
+					"dataset": {
+						"referenceName": "Loc_Pedido_Locacao",
+						"type": "DatasetReference"
+					},
+					"name": "Tempo"
 				}
 			],
 			"sinks": [
@@ -142,6 +156,27 @@
 				},
 				{
 					"name": "join2"
+				},
+				{
+					"name": "join3"
+				},
+				{
+					"name": "join4"
+				},
+				{
+					"name": "SelectTempo"
+				},
+				{
+					"name": "join5"
+				},
+				{
+					"name": "TratamentoTempo"
+				},
+				{
+					"name": "join6"
+				},
+				{
+					"name": "select1"
 				}
 			],
 			"scriptLines": [
@@ -224,7 +259,7 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
-				"     format: 'parquet') ~> PedidoLocacao",
+				"     format: 'parquet') ~> Fato",
 				"source(output(",
 				"          cd_Tp_Automovel as integer,",
 				"          Nm_Tp_Automovel as string",
@@ -250,6 +285,34 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     format: 'parquet') ~> Veiculo",
+				"source(output(",
+				"          Nr_Pedido as integer,",
+				"          Nr_Placa as string,",
+				"          Vl_Diaria as decimal(38,18),",
+				"          Vl_Diaria_Calc as decimal(38,18)",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> ItemPedido",
+				"source(output(",
+				"          Nr_Pedido as integer,",
+				"          Dt_Locacao as timestamp,",
+				"          Cd_Cliente as integer,",
+				"          Cd_Agencia as integer,",
+				"          Qt_Dias as integer,",
+				"          Vl_Total as decimal(38,18),",
+				"          Status as string,",
+				"          Dt_Retirada as timestamp,",
+				"          Dt_Entrega as timestamp,",
+				"          Cd_Func as integer,",
+				"          Dt_Pagto as timestamp,",
+				"          Cd_Age_Bco as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> Tempo",
 				"idDimCliente select(mapColumn(",
 				"          idD_Cliente,",
 				"          Nm_Cliente,",
@@ -321,7 +384,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> SelectDimVeiculo",
-				"PedidoLocacao select(mapColumn(",
+				"Fato select(mapColumn(",
 				"          Dt_Locacao,",
 				"          Qt_Dias,",
 				"          Vl_Total,",
@@ -351,12 +414,51 @@
 				"SelectPedidoLoc keyGenerate(output(idF_Aluguel as long),",
 				"     startAt: 1L,",
 				"     stepValue: 1L) ~> idFato",
-				"PedidoLocacao, Cliente join(PedidoLocacao@Cd_Cliente == Cliente@Cd_cliente,",
+				"Fato, Cliente join(Fato@Cd_Cliente == Cliente@Cd_cliente,",
 				"     joinType:'left',",
 				"     broadcast: 'auto')~> join1",
-				"join1, Agencia join(PedidoLocacao@Cd_Agencia == Agencia@cd_Agencia,",
+				"join1, Agencia join(Fato@Cd_Agencia == Agencia@cd_Agencia,",
 				"     joinType:'inner',",
 				"     broadcast: 'auto')~> join2",
+				"join2, ItemPedido join(Fato@Nr_Pedido == ItemPedido@Nr_Pedido,",
+				"     joinType:'inner',",
+				"     broadcast: 'auto')~> join3",
+				"join3, Veiculo join(ItemPedido@Nr_Placa == Veiculo@Nr_Placa,",
+				"     joinType:'left',",
+				"     broadcast: 'auto')~> join4",
+				"Tempo select(mapColumn(",
+				"          Nr_Pedido,",
+				"          Dt_Locacao,",
+				"          Qt_Dias,",
+				"          Dt_Retirada,",
+				"          Dt_Entrega,",
+				"          Dt_Pagto",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SelectTempo",
+				"join4, Funcionario join(Fato@Cd_Func == Funcionario@Cd_Func,",
+				"     joinType:'left',",
+				"     broadcast: 'auto')~> join5",
+				"SelectTempo derive(Mes_Locacao = month(Dt_Locacao),",
+				"          Ano_Locacao = year(Dt_Locacao)) ~> TratamentoTempo",
+				"join5, TratamentoTempo join(Fato@Nr_Pedido == SelectTempo@Nr_Pedido,",
+				"     joinType:'left',",
+				"     broadcast: 'auto')~> join6",
+				"join6 select(mapColumn(",
+				"          id_Pedido = Fato@Nr_Pedido,",
+				"          idD_Tempo = SelectTempo@Nr_Pedido,",
+				"          idD_Veiculo = Veiculo@Nr_Placa,",
+				"          idD_Funcionario = Fato@Cd_Func,",
+				"          idD_Cliente = Fato@Cd_Cliente,",
+				"          idD_Agencia = Fato@Cd_Agencia,",
+				"          Qt_Dias = Fato@Qt_Dias,",
+				"          Aluguel_Status = Fato@Status,",
+				"          Dt_Retirada = Fato@Dt_Retirada,",
+				"          Dt_Entrega = Fato@Dt_Entrega,",
+				"          Vl_Total",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
 				"SelectCliAge sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",
