@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "dim_agencia",
+				"fileName": "dim_agencia.parquet",
 				"folderPath": "DW",
 				"fileSystem": "query"
 			},
