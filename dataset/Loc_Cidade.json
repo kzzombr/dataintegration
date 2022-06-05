@@ -11,8 +11,8 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"fileName": "loc_cidade.parquet",
-				"folderPath": "carloca",
-				"fileSystem": "ingestion"
+				"folderPath": "organization",
+				"fileSystem": "outro"
 			},
 			"compressionCodec": "snappy"
 		},
