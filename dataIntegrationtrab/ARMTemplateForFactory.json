@@ -4,30 +4,42 @@
 	"parameters": {
 		"factoryName": {
 			"type": "string",
-			"metadata": "Nome do Data Factory",
+			"metadata": "Data Factory name",
 			"defaultValue": "dataIntegrationtrab"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
 		},
 		"DLIngestion_accountKey": {
 			"type": "secureString",
-			"metadata": "Cadeia de caracteres segura para 'accountKey' de 'DLIngestion'"
+			"metadata": "Secure string for 'accountKey' of 'DLIngestion'"
+		},
+		"DW_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'DW'"
+		},
+		"MySql1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'MySql1'"
 		},
 		"carloca_connectionString": {
 			"type": "secureString",
-			"metadata": "Cadeia de caracteres segura para 'connectionString' de 'carloca'"
-		},
-		"carloca2_connectionString": {
-			"type": "secureString",
-			"metadata": "Cadeia de caracteres segura para 'connectionString' de 'carloca2'"
+			"metadata": "Secure string for 'connectionString' of 'carloca'"
 		},
 		"indicadorTendencias_connectionString": {
 			"type": "secureString",
-			"metadata": "Cadeia de caracteres segura para 'connectionString' de 'indicadorTendencias'"
+			"metadata": "Secure string for 'connectionString' of 'indicadorTendencias'"
 		},
-		"masteruber_connectionString": {
-			"type": "secureString",
-			"metadata": "Cadeia de caracteres segura para 'connectionString' de 'masteruber'"
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://kenzostorage123.dfs.core.windows.net"
 		},
 		"DLIngestion_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://kenzostorage123.dfs.core.windows.net"
+		},
+		"DW_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://kenzostorage123.dfs.core.windows.net"
 		}
@@ -37,17 +49,1517 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/IngestionPipeCarloca')]",
+			"name": "[concat(parameters('factoryName'), '/IngestionCarloca')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "iterarTablCarloca",
+						"name": "loc_tp_combustivel",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_tp_combustivel"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_tp_combustivel.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_veiculo",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_veiculo"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_veiculo.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_tp_cliente",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_tp_cliente"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_tp_cliente.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_tp_automovel",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_tp_automovel"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_tp_automovel.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_proprietario",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_proprietario"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_proprietario.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_presidente",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_presidente"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_presidente.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_pedido_locacao",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_pedido_locacao"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_pedido_locacao.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_operadora",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_operadora"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_operadora.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_modelo",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_modelo"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_modelo.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_item_locacao",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_item_locacao"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_item_locacao.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_grupo",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_grupo"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_grupo.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_gerente",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_gerente"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_gerente.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_funcionario",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_funcionario"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_funcionario.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_Fone_Cliente",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_Fone_Cliente"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_Fone_Cliente.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_fabricante",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_fabricante"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_fabricante.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_estado",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_estado"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_estado.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_diretor",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_diretor"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_diretor.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_depto",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_depto"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_depto.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_cor",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_cor"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_cor.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_cliente",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_cliente"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_cliente.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_cidade",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_cidade"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_cidade.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_chefe",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_chefe"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_chefe.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_cargo",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_cargo"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_cargo.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_banco",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_banco"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_banco.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_agencia",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "loc_agencia"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_agencia.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "LOC_AGE_BCO",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TabelaGenericaIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "LOC_AGE_BCO"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "LOC_AGE_BCO.parquet"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/TabelaGenericaIngestion')]",
+				"[concat(variables('factoryId'), '/datasets/ParquetIngestion')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/IngestionTendencia')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Lookup_Tendencia",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"sqlReaderQuery": "SELECT TABLE_NAME \nFROM information_schema.tables;",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "SqlServerLookUpTendencia",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						}
+					},
+					{
+						"name": "ForEach1",
 						"type": "ForEach",
 						"dependsOn": [
 							{
-								"activity": "Lookup1",
+								"activity": "Lookup_Tendencia",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -56,13 +1568,12 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@activity('CarlocaIngestion').output",
+								"value": "@activity('Lookup_Tendencia').output.value",
 								"type": "Expression"
 							},
-							"isSequential": true,
 							"activities": [
 								{
-									"name": "CarlocaIngestion",
+									"name": "Copy data1",
 									"type": "Copy",
 									"dependsOn": [],
 									"policy": {
@@ -75,7 +1586,9 @@
 									"userProperties": [],
 									"typeProperties": {
 										"source": {
-											"type": "MySqlSource"
+											"type": "SqlServerSource",
+											"queryTimeout": "02:00:00",
+											"partitionOption": "None"
 										},
 										"sink": {
 											"type": "ParquetSink",
@@ -98,11 +1611,11 @@
 									},
 									"inputs": [
 										{
-											"referenceName": "Carloca",
+											"referenceName": "SqlTendencia",
 											"type": "DatasetReference",
 											"parameters": {
 												"tableName": {
-													"value": "@activity('Lookup1').output",
+													"value": "@item().TABLE_NAME",
 													"type": "Expression"
 												}
 											}
@@ -114,9 +1627,9 @@
 											"type": "DatasetReference",
 											"parameters": {
 												"container": "ingestion",
-												"folder": "carloca",
+												"folder": "tendencia",
 												"file": {
-													"value": "@CONCAT(item(),'.parquet')",
+													"value": "@concat(item().table_name.'.parquet')",
 													"type": "Expression"
 												}
 											}
@@ -125,10 +1638,29 @@
 								}
 							]
 						}
-					},
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SqlServerLookUpTendencia')]",
+				"[concat(variables('factoryId'), '/datasets/SqlTendencia')]",
+				"[concat(variables('factoryId'), '/datasets/ParquetIngestion')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Organization')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
 					{
-						"name": "Lookup1",
-						"type": "Lookup",
+						"name": "loc_veiculo",
+						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "7.00:00:00",
@@ -140,15 +1672,682 @@
 						"userProperties": [],
 						"typeProperties": {
 							"source": {
-								"type": "MySqlSource",
-								"query": "SELECT TABLE_NAME from information_schema.tables\nwhere table_schema = 'carloca'"
+								"type": "ParquetSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
 							},
-							"dataset": {
-								"referenceName": "MySqlTable1",
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ParquetIngestion",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_veiculo.parquet"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "outro",
+									"folder": "organization",
+									"file": "loc_veiculo.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_tp_automovel",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ParquetSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
 							},
-							"firstRowOnly": false
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_tp_automovel.parquet"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "outro",
+									"folder": "organization",
+									"file": "loc_tp_automovel.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_pedido_locacao",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ParquetSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_pedido_locacao.parquet"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "outro",
+									"folder": "organization",
+									"file": "loc_pedido_locacao.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_modelo",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ParquetSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_modelo.parquet"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "outro",
+									"folder": "organization",
+									"file": "loc_modelo.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_item_locacao",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ParquetSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_item_locacao.parquet"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "outro",
+									"folder": "organization",
+									"file": "loc_item_locacao.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_funcionario",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ParquetSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_funcionario.parquet"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "outro",
+									"folder": "organization",
+									"file": "loc_funcionario.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_estado",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ParquetSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_estado.parquet"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "outro",
+									"folder": "organization",
+									"file": "loc_estado"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_cliente",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ParquetSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_cliente.parquet"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "outro",
+									"folder": "organization",
+									"file": "loc_cliente.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_cidade",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ParquetSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_cidade.parquet"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "outro",
+									"folder": "organization",
+									"file": "loc_cidade.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "loc_agencia",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ParquetSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "ingestion",
+									"folder": "carloca",
+									"file": "loc_agencia.parquet"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ParquetIngestion",
+								"type": "DatasetReference",
+								"parameters": {
+									"container": "outro",
+									"folder": "organization",
+									"file": "loc_agencia.parquet"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ParquetIngestion')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Query')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "DataFlow_DW",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "dataflowDW",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"Cliente": {},
+									"Agencia": {},
+									"Cidade": {},
+									"Estado": {},
+									"Funcionario": {},
+									"Modelo": {},
+									"Fato": {},
+									"TpAutomovel": {},
+									"Veiculo": {},
+									"ItemPedido": {},
+									"Tempo": {},
+									"DimCliente": {},
+									"DimAgencia": {},
+									"DimFuncionario": {},
+									"DimVeiculo": {},
+									"DimTempo": {},
+									"FatoAluguel": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
 						}
 					}
 				],
@@ -159,55 +2358,145 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/MySqlTable1')]",
-				"[concat(variables('factoryId'), '/datasets/Carloca')]",
-				"[concat(variables('factoryId'), '/datasets/ParquetIngestion')]"
+				"[concat(variables('factoryId'), '/dataflows/dataflowDW')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Carloca')]",
+			"name": "[concat(parameters('factoryName'), '/Dim_Agencia_DW')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "carloca2",
+					"referenceName": "DW",
 					"type": "LinkedServiceReference"
 				},
-				"parameters": {
-					"tableName": {
-						"type": "string"
-					}
-				},
 				"annotations": [],
-				"type": "MySqlTable",
-				"schema": [],
+				"type": "Parquet",
 				"typeProperties": {
-					"tableName": {
-						"value": "@dataset().tableName",
-						"type": "Expression"
-					}
-				}
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Dim_Agencia.parquet",
+						"folderPath": "DW",
+						"fileSystem": "query"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/carloca2')]"
+				"[concat(variables('factoryId'), '/linkedServices/DW')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Masteruber')]",
+			"name": "[concat(parameters('factoryName'), '/Dim_Cliente_DW')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "masteruber",
+					"referenceName": "DW",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
-				"type": "SqlServerTable",
-				"schema": [],
-				"typeProperties": {}
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Dim_Cliente.parquet",
+						"folderPath": "DW",
+						"fileSystem": "query"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/masteruber')]"
+				"[concat(variables('factoryId'), '/linkedServices/DW')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Loc_Agencia')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "DLIngestion",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "loc_agencia.parquet",
+						"folderPath": "organization",
+						"fileSystem": "outro"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "cd_Agencia",
+						"type": "INT32"
+					},
+					{
+						"name": "Nm_Agencia",
+						"type": "UTF8"
+					},
+					{
+						"name": "cd_Cidade",
+						"type": "INT32"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/DLIngestion')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Loc_Cliente')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "DLIngestion",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "loc_cliente.parquet",
+						"folderPath": "organization",
+						"fileSystem": "outro"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "Cd_cliente",
+						"type": "INT32"
+					},
+					{
+						"name": "Nm_Cliente",
+						"type": "UTF8"
+					},
+					{
+						"name": "Cd_Tp_Cliente",
+						"type": "INT32"
+					},
+					{
+						"name": "Nr_Estrelas",
+						"type": "INT32"
+					},
+					{
+						"name": "Nr_Habilitacao",
+						"type": "INT32"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/DLIngestion')]"
 			]
 		},
 		{
@@ -257,6 +2546,97 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/SqlServerLookUpTendencia')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "indicadorTendencias",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/indicadorTendencias')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SqlTendencia')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "indicadorTendencias",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"tableName": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [],
+				"typeProperties": {
+					"table": {
+						"value": "@dataset().tableName",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/indicadorTendencias')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/TabelaGenericaIngestion')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "MySql1",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"tablename": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "MySqlTable",
+				"schema": [],
+				"typeProperties": {
+					"tableName": {
+						"value": "@dataset().tablename",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/MySql1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DLIngestion')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -274,6 +2654,36 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DW')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('DW_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('DW_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MySql1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "MySql",
+				"typeProperties": {
+					"connectionString": "[parameters('MySql1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/carloca')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -282,34 +2692,9 @@
 				"type": "MySql",
 				"typeProperties": {
 					"connectionString": "[parameters('carloca_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "integrationRuntime1",
-					"type": "IntegrationRuntimeReference"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/integrationRuntime1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/carloca2')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "MySql",
-				"typeProperties": {
-					"connectionString": "[parameters('carloca2_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "integrationRuntime1",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/integrationRuntime1')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/indicadorTendencias')]",
@@ -320,34 +2705,9 @@
 				"type": "SqlServer",
 				"typeProperties": {
 					"connectionString": "[parameters('indicadorTendencias_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "integrationRuntime1",
-					"type": "IntegrationRuntimeReference"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/integrationRuntime1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/masteruber')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "SqlServer",
-				"typeProperties": {
-					"connectionString": "[parameters('masteruber_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "integrationRuntime1",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/integrationRuntime1')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/integrationRuntime1')]",
@@ -360,21 +2720,1124 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/MySqlTable1')]",
+			"name": "[concat(parameters('factoryName'), '/integrationRuntime2')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/runtime')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflowDW')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "Loc_Cliente",
+								"type": "DatasetReference"
+							},
+							"name": "Cliente"
+						},
+						{
+							"dataset": {
+								"referenceName": "Loc_Agencia",
+								"type": "DatasetReference"
+							},
+							"name": "Agencia"
+						},
+						{
+							"dataset": {
+								"referenceName": "Loc_Cidade",
+								"type": "DatasetReference"
+							},
+							"name": "Cidade"
+						},
+						{
+							"dataset": {
+								"referenceName": "Loc_Estado",
+								"type": "DatasetReference"
+							},
+							"name": "Estado"
+						},
+						{
+							"dataset": {
+								"referenceName": "Loc_Funcionario",
+								"type": "DatasetReference"
+							},
+							"name": "Funcionario"
+						},
+						{
+							"dataset": {
+								"referenceName": "Loc_Modelo",
+								"type": "DatasetReference"
+							},
+							"name": "Modelo"
+						},
+						{
+							"dataset": {
+								"referenceName": "Loc_Pedido_Locacao",
+								"type": "DatasetReference"
+							},
+							"name": "Fato"
+						},
+						{
+							"dataset": {
+								"referenceName": "Loc_Tp_Automovel",
+								"type": "DatasetReference"
+							},
+							"name": "TpAutomovel"
+						},
+						{
+							"dataset": {
+								"referenceName": "Loc_Veiculo",
+								"type": "DatasetReference"
+							},
+							"name": "Veiculo"
+						},
+						{
+							"dataset": {
+								"referenceName": "Loc_Item_Pedido",
+								"type": "DatasetReference"
+							},
+							"name": "ItemPedido"
+						},
+						{
+							"dataset": {
+								"referenceName": "Loc_Pedido_Locacao",
+								"type": "DatasetReference"
+							},
+							"name": "Tempo"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "Dim_Cliente_DW",
+								"type": "DatasetReference"
+							},
+							"name": "DimCliente",
+							"rejectedDataLinkedService": {
+								"referenceName": "DLIngestion",
+								"type": "LinkedServiceReference"
+							}
+						},
+						{
+							"dataset": {
+								"referenceName": "Dim_Agencia_DW",
+								"type": "DatasetReference"
+							},
+							"name": "DimAgencia"
+						},
+						{
+							"dataset": {
+								"referenceName": "Dim_Funcionario_DW",
+								"type": "DatasetReference"
+							},
+							"name": "DimFuncionario"
+						},
+						{
+							"dataset": {
+								"referenceName": "Dim_Veiculo_DW",
+								"type": "DatasetReference"
+							},
+							"name": "DimVeiculo"
+						},
+						{
+							"dataset": {
+								"referenceName": "Dim_Tempo_DW",
+								"type": "DatasetReference"
+							},
+							"name": "DimTempo"
+						},
+						{
+							"dataset": {
+								"referenceName": "Fato_Aluguel_DW",
+								"type": "DatasetReference"
+							},
+							"name": "FatoAluguel"
+						}
+					],
+					"transformations": [
+						{
+							"name": "SelectCliAge"
+						},
+						{
+							"name": "JoinCidEst"
+						},
+						{
+							"name": "JoinAgCidEst"
+						},
+						{
+							"name": "SelectCidEst"
+						},
+						{
+							"name": "SelectDimFunc"
+						},
+						{
+							"name": "SelectVeic"
+						},
+						{
+							"name": "JoinTpVeiculo"
+						},
+						{
+							"name": "SelectJoinTpVeic"
+						},
+						{
+							"name": "JoinVeicMod"
+						},
+						{
+							"name": "SelectDimVeiculo"
+						},
+						{
+							"name": "idDimAgencia"
+						},
+						{
+							"name": "SelectDimAgencia"
+						},
+						{
+							"name": "idDimCliente"
+						},
+						{
+							"name": "idDimFunc"
+						},
+						{
+							"name": "join1"
+						},
+						{
+							"name": "join2"
+						},
+						{
+							"name": "join3"
+						},
+						{
+							"name": "join4"
+						},
+						{
+							"name": "SelectTempo"
+						},
+						{
+							"name": "join5"
+						},
+						{
+							"name": "TratamentoTempo"
+						},
+						{
+							"name": "join6"
+						},
+						{
+							"name": "SelectFato"
+						},
+						{
+							"name": "idFato"
+						},
+						{
+							"name": "select1"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          Cd_cliente as integer,",
+						"          Nm_Cliente as string,",
+						"          Cd_Tp_Cliente as integer,",
+						"          Nr_Estrelas as integer,",
+						"          Nr_Habilitacao as integer",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     format: 'parquet') ~> Cliente",
+						"source(output(",
+						"          cd_Agencia as integer,",
+						"          Nm_Agencia as string,",
+						"          cd_Cidade as integer",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     format: 'parquet') ~> Agencia",
+						"source(output(",
+						"          Cd_Cidade as integer,",
+						"          Nm_Cidade as string,",
+						"          Cd_Estado as integer",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     format: 'parquet') ~> Cidade",
+						"source(output(",
+						"          Cd_Estado as integer,",
+						"          Nm_Estado as string,",
+						"          Sigla_Estado as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     format: 'parquet') ~> Estado",
+						"source(output(",
+						"          Cd_Func as integer,",
+						"          Nm_Func as string,",
+						"          Dt_Inicio as timestamp,",
+						"          Cd_Gerente as integer,",
+						"          Nr_CPF as integer,",
+						"          Vl_Salario as decimal(38,18),",
+						"          Vl_Perc_Comissao as decimal(38,18),",
+						"          Cd_Depto as integer,",
+						"          Cd_Cargo as integer",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     format: 'parquet') ~> Funcionario",
+						"source(output(",
+						"          cd_Modelo as integer,",
+						"          Nm_Modelo as string,",
+						"          cd_Fabricante as integer",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     format: 'parquet') ~> Modelo",
+						"source(output(",
+						"          Nr_Pedido as integer,",
+						"          Dt_Locacao as timestamp,",
+						"          Cd_Cliente as integer,",
+						"          Cd_Agencia as integer,",
+						"          Qt_Dias as integer,",
+						"          Vl_Total as decimal(38,18),",
+						"          Status as string,",
+						"          Dt_Retirada as timestamp,",
+						"          Dt_Entrega as timestamp,",
+						"          Cd_Func as integer,",
+						"          Dt_Pagto as timestamp,",
+						"          Cd_Age_Bco as integer",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     format: 'parquet') ~> Fato",
+						"source(output(",
+						"          cd_Tp_Automovel as integer,",
+						"          Nm_Tp_Automovel as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     format: 'parquet') ~> TpAutomovel",
+						"source(output(",
+						"          Nr_Placa as string,",
+						"          Cd_Proprietario as integer,",
+						"          Nr_Chassis as string,",
+						"          Status as string,",
+						"          Km_Atual as integer,",
+						"          Tp_Automovel as integer,",
+						"          Tp_Combustivel as integer,",
+						"          cd_Modelo as integer,",
+						"          cd_cor as integer,",
+						"          cd_grupo as integer,",
+						"          Vl_Diaria as decimal(38,18)",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     format: 'parquet') ~> Veiculo",
+						"source(output(",
+						"          Nr_Pedido as integer,",
+						"          Nr_Placa as string,",
+						"          Vl_Diaria as decimal(38,18),",
+						"          Vl_Diaria_Calc as decimal(38,18)",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     format: 'parquet') ~> ItemPedido",
+						"source(output(",
+						"          Nr_Pedido as integer,",
+						"          Dt_Locacao as timestamp,",
+						"          Cd_Cliente as integer,",
+						"          Cd_Agencia as integer,",
+						"          Qt_Dias as integer,",
+						"          Vl_Total as decimal(38,18),",
+						"          Status as string,",
+						"          Dt_Retirada as timestamp,",
+						"          Dt_Entrega as timestamp,",
+						"          Cd_Func as integer,",
+						"          Dt_Pagto as timestamp,",
+						"          Cd_Age_Bco as integer",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     format: 'parquet') ~> Tempo",
+						"idDimCliente select(mapColumn(",
+						"          idD_Cliente,",
+						"          Nm_Cliente,",
+						"          Nr_Estrelas,",
+						"          Nr_Habilitacao",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> SelectCliAge",
+						"Cidade, Estado join(Cidade@Cd_Estado == Estado@Cd_Estado,",
+						"     joinType:'inner',",
+						"     broadcast: 'auto')~> JoinCidEst",
+						"Agencia, SelectCidEst join(Agencia@cd_Cidade == SelectCidEst@Cd_Cidade,",
+						"     joinType:'left',",
+						"     broadcast: 'auto')~> JoinAgCidEst",
+						"JoinCidEst select(mapColumn(",
+						"          Cd_Cidade,",
+						"          Nm_Cidade,",
+						"          Cd_Estado = Cidade@Cd_Estado,",
+						"          Cd_Estado = Estado@Cd_Estado,",
+						"          Nm_Estado,",
+						"          Sigla_Estado",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> SelectCidEst",
+						"idDimFunc select(mapColumn(",
+						"          Cd_Func,",
+						"          Nm_Func,",
+						"          Cd_Gerente,",
+						"          Nr_CPF,",
+						"          Vl_Perc_Comissao",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> SelectDimFunc",
+						"Veiculo select(mapColumn(",
+						"          Nr_Placa,",
+						"          Nr_Chassis,",
+						"          Km_Atual,",
+						"          Tp_Automovel,",
+						"          cd_Modelo,",
+						"          Vl_Diaria",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> SelectVeic",
+						"SelectVeic, TpAutomovel join(Tp_Automovel == cd_Tp_Automovel,",
+						"     joinType:'left',",
+						"     broadcast: 'auto')~> JoinTpVeiculo",
+						"JoinTpVeiculo select(mapColumn(",
+						"          Nr_Placa,",
+						"          Nr_Chassis,",
+						"          Km_Atual,",
+						"          Tp_Automovel,",
+						"          cd_Modelo,",
+						"          Vl_Diaria,",
+						"          cd_Tp_Automovel,",
+						"          Nm_Tp_Automovel",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> SelectJoinTpVeic",
+						"SelectJoinTpVeic, Modelo join(SelectJoinTpVeic@cd_Modelo == Modelo@cd_Modelo,",
+						"     joinType:'inner',",
+						"     broadcast: 'auto')~> JoinVeicMod",
+						"JoinVeicMod select(mapColumn(",
+						"          Nr_Placa,",
+						"          Nr_Chassis,",
+						"          Km_Atual,",
+						"          Vl_Diaria,",
+						"          Nm_Modelo,",
+						"          Nm_Tp_Automovel",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> SelectDimVeiculo",
+						"JoinAgCidEst keyGenerate(output(idD_Agencia as long),",
+						"     startAt: 1L,",
+						"     stepValue: 1L) ~> idDimAgencia",
+						"idDimAgencia select(mapColumn(",
+						"          idD_Agencia,",
+						"          Nm_Agencia,",
+						"          Nm_Cidade,",
+						"          Sigla_Estado",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> SelectDimAgencia",
+						"Cliente keyGenerate(output(idD_Cliente as long),",
+						"     startAt: 1L,",
+						"     stepValue: 1L) ~> idDimCliente",
+						"Funcionario keyGenerate(output(idD_Funcionario as long),",
+						"     startAt: 1L,",
+						"     stepValue: 1L) ~> idDimFunc",
+						"Fato, Cliente join(Fato@Cd_Cliente == Cliente@Cd_cliente,",
+						"     joinType:'left',",
+						"     broadcast: 'auto')~> join1",
+						"join1, Agencia join(Fato@Cd_Agencia == Agencia@cd_Agencia,",
+						"     joinType:'inner',",
+						"     broadcast: 'auto')~> join2",
+						"join2, ItemPedido join(Fato@Nr_Pedido == ItemPedido@Nr_Pedido,",
+						"     joinType:'inner',",
+						"     broadcast: 'auto')~> join3",
+						"join3, Veiculo join(ItemPedido@Nr_Placa == Veiculo@Nr_Placa,",
+						"     joinType:'left',",
+						"     broadcast: 'auto')~> join4",
+						"Tempo select(mapColumn(",
+						"          Nr_Pedido,",
+						"          Dt_Locacao,",
+						"          Qt_Dias,",
+						"          Dt_Retirada,",
+						"          Dt_Entrega,",
+						"          Dt_Pagto",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> SelectTempo",
+						"join4, Funcionario join(Fato@Cd_Func == Funcionario@Cd_Func,",
+						"     joinType:'left',",
+						"     broadcast: 'auto')~> join5",
+						"SelectTempo derive(Mes_Locacao = month(Dt_Locacao),",
+						"          Ano_Locacao = year(Dt_Locacao)) ~> TratamentoTempo",
+						"join5, TratamentoTempo join(Fato@Nr_Pedido == SelectTempo@Nr_Pedido,",
+						"     joinType:'left',",
+						"     broadcast: 'auto')~> join6",
+						"idFato select(mapColumn(",
+						"          idFato,",
+						"          idD_Cliente,",
+						"          idD_Agencia,",
+						"          idD_Func,",
+						"          idD_Veiculo,",
+						"          idD_Tempo,",
+						"          Dt_Retirada,",
+						"          Dt_Entrega,",
+						"          Qt_Dias,",
+						"          Status_Aluguel,",
+						"          Vl_Total,",
+						"          Nr_Pedido",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> SelectFato",
+						"select1 keyGenerate(output(idFato as long),",
+						"     startAt: 1L,",
+						"     stepValue: 1L) ~> idFato",
+						"join6 select(mapColumn(",
+						"          Nr_Pedido = Fato@Nr_Pedido,",
+						"          idD_Cliente = Fato@Cd_Cliente,",
+						"          idD_Agencia = Fato@Cd_Agencia,",
+						"          idD_Func = Fato@Cd_Func,",
+						"          idD_Veiculo = ItemPedido@Nr_Placa,",
+						"          idD_Tempo = SelectTempo@Nr_Pedido,",
+						"          Dt_Retirada = Fato@Dt_Retirada,",
+						"          Dt_Entrega = Fato@Dt_Entrega,",
+						"          Qt_Dias = Fato@Qt_Dias,",
+						"          Vl_Diaria = ItemPedido@Vl_Diaria,",
+						"          Status_Aluguel = Fato@Status,",
+						"          Vl_Total",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> select1",
+						"SelectCliAge sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'parquet',",
+						"     partitionFileNames:['dim_cliente'],",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     saveOrder: 0,",
+						"     partitionBy('hash', 1)) ~> DimCliente",
+						"SelectDimAgencia sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'parquet',",
+						"     partitionFileNames:['dim_agencia'],",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> DimAgencia",
+						"SelectDimFunc sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'parquet',",
+						"     partitionFileNames:['dim_funcionario'],",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> DimFuncionario",
+						"SelectDimVeiculo sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'parquet',",
+						"     partitionFileNames:['dim_veiculo'],",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> DimVeiculo",
+						"TratamentoTempo sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'parquet',",
+						"     partitionFileNames:['dim_tempo'],",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> DimTempo",
+						"SelectFato sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'parquet',",
+						"     partitionFileNames:['fato_aluguel'],",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> FatoAluguel"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/Loc_Cliente')]",
+				"[concat(variables('factoryId'), '/datasets/Loc_Agencia')]",
+				"[concat(variables('factoryId'), '/datasets/Loc_Cidade')]",
+				"[concat(variables('factoryId'), '/datasets/Loc_Estado')]",
+				"[concat(variables('factoryId'), '/datasets/Loc_Funcionario')]",
+				"[concat(variables('factoryId'), '/datasets/Loc_Modelo')]",
+				"[concat(variables('factoryId'), '/datasets/Loc_Pedido_Locacao')]",
+				"[concat(variables('factoryId'), '/datasets/Loc_Tp_Automovel')]",
+				"[concat(variables('factoryId'), '/datasets/Loc_Veiculo')]",
+				"[concat(variables('factoryId'), '/datasets/Loc_Item_Pedido')]",
+				"[concat(variables('factoryId'), '/datasets/Dim_Cliente_DW')]",
+				"[concat(variables('factoryId'), '/linkedServices/DLIngestion')]",
+				"[concat(variables('factoryId'), '/datasets/Dim_Agencia_DW')]",
+				"[concat(variables('factoryId'), '/datasets/Dim_Funcionario_DW')]",
+				"[concat(variables('factoryId'), '/datasets/Dim_Veiculo_DW')]",
+				"[concat(variables('factoryId'), '/datasets/Dim_Tempo_DW')]",
+				"[concat(variables('factoryId'), '/datasets/Fato_Aluguel_DW')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Loc_Cidade')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "carloca",
+					"referenceName": "DLIngestion",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
-				"type": "MySqlTable",
-				"schema": [],
-				"typeProperties": {}
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "loc_cidade.parquet",
+						"folderPath": "organization",
+						"fileSystem": "outro"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "Cd_Cidade",
+						"type": "INT32"
+					},
+					{
+						"name": "Nm_Cidade",
+						"type": "UTF8"
+					},
+					{
+						"name": "Cd_Estado",
+						"type": "INT32"
+					}
+				]
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/carloca')]"
+				"[concat(variables('factoryId'), '/linkedServices/DLIngestion')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Loc_Estado')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "DLIngestion",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "loc_estado",
+						"folderPath": "organization",
+						"fileSystem": "outro"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "Cd_Estado",
+						"type": "INT32"
+					},
+					{
+						"name": "Nm_Estado",
+						"type": "UTF8"
+					},
+					{
+						"name": "Sigla_Estado",
+						"type": "UTF8"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/DLIngestion')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Loc_Funcionario')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "DLIngestion",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "loc_funcionario.parquet",
+						"folderPath": "organization",
+						"fileSystem": "outro"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "Cd_Func",
+						"type": "INT32"
+					},
+					{
+						"name": "Nm_Func",
+						"type": "UTF8"
+					},
+					{
+						"name": "Dt_Inicio",
+						"type": "INT96"
+					},
+					{
+						"name": "Cd_Gerente",
+						"type": "INT32"
+					},
+					{
+						"name": "Nr_CPF",
+						"type": "INT32"
+					},
+					{
+						"name": "Vl_Salario",
+						"type": "DECIMAL",
+						"precision": 38,
+						"scale": 18
+					},
+					{
+						"name": "Vl_Perc_Comissao",
+						"type": "DECIMAL",
+						"precision": 38,
+						"scale": 18
+					},
+					{
+						"name": "Cd_Depto",
+						"type": "INT32"
+					},
+					{
+						"name": "Cd_Cargo",
+						"type": "INT32"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/DLIngestion')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Loc_Modelo')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "DLIngestion",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "loc_modelo.parquet",
+						"folderPath": "organization",
+						"fileSystem": "outro"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "cd_Modelo",
+						"type": "INT32"
+					},
+					{
+						"name": "Nm_Modelo",
+						"type": "UTF8"
+					},
+					{
+						"name": "cd_Fabricante",
+						"type": "INT32"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/DLIngestion')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Loc_Pedido_Locacao')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "DLIngestion",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "loc_pedido_locacao.parquet",
+						"folderPath": "organization",
+						"fileSystem": "outro"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "Nr_Pedido",
+						"type": "INT32"
+					},
+					{
+						"name": "Dt_Locacao",
+						"type": "INT96"
+					},
+					{
+						"name": "Cd_Cliente",
+						"type": "INT32"
+					},
+					{
+						"name": "Cd_Agencia",
+						"type": "INT32"
+					},
+					{
+						"name": "Qt_Dias",
+						"type": "INT32"
+					},
+					{
+						"name": "Vl_Total",
+						"type": "DECIMAL",
+						"precision": 38,
+						"scale": 18
+					},
+					{
+						"name": "Status",
+						"type": "UTF8"
+					},
+					{
+						"name": "Dt_Retirada",
+						"type": "INT96"
+					},
+					{
+						"name": "Dt_Entrega",
+						"type": "INT96"
+					},
+					{
+						"name": "Cd_Func",
+						"type": "INT32"
+					},
+					{
+						"name": "Dt_Pagto",
+						"type": "INT96"
+					},
+					{
+						"name": "Cd_Age_Bco",
+						"type": "INT32"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/DLIngestion')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Loc_Tp_Automovel')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "DLIngestion",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "loc_tp_automovel.parquet",
+						"folderPath": "organization",
+						"fileSystem": "outro"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "cd_Tp_Automovel",
+						"type": "INT32"
+					},
+					{
+						"name": "Nm_Tp_Automovel",
+						"type": "UTF8"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/DLIngestion')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Loc_Veiculo')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "DLIngestion",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "loc_veiculo.parquet",
+						"folderPath": "organization",
+						"fileSystem": "outro"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "Nr_Placa",
+						"type": "UTF8"
+					},
+					{
+						"name": "Cd_Proprietario",
+						"type": "INT32"
+					},
+					{
+						"name": "Nr_Chassis",
+						"type": "UTF8"
+					},
+					{
+						"name": "Status",
+						"type": "UTF8"
+					},
+					{
+						"name": "Km_Atual",
+						"type": "INT32"
+					},
+					{
+						"name": "Tp_Automovel",
+						"type": "INT32"
+					},
+					{
+						"name": "Tp_Combustivel",
+						"type": "INT32"
+					},
+					{
+						"name": "cd_Modelo",
+						"type": "INT32"
+					},
+					{
+						"name": "cd_cor",
+						"type": "INT32"
+					},
+					{
+						"name": "cd_grupo",
+						"type": "INT32"
+					},
+					{
+						"name": "Vl_Diaria",
+						"type": "DECIMAL",
+						"precision": 38,
+						"scale": 18
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/DLIngestion')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Loc_Item_Pedido')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "DLIngestion",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "loc_item_locacao.parquet",
+						"folderPath": "organization",
+						"fileSystem": "outro"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "Nr_Pedido",
+						"type": "INT32"
+					},
+					{
+						"name": "Nr_Placa",
+						"type": "UTF8"
+					},
+					{
+						"name": "Vl_Diaria",
+						"type": "DECIMAL",
+						"precision": 38,
+						"scale": 18
+					},
+					{
+						"name": "Vl_Diaria_Calc",
+						"type": "DECIMAL",
+						"precision": 38,
+						"scale": 18
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/DLIngestion')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Dim_Funcionario_DW')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "DW",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Dim_Funcionario.parquet",
+						"folderPath": "DW",
+						"fileSystem": "query"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/DW')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Dim_Tempo_DW')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "DW",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Dim_Tempo.parquet",
+						"folderPath": "DW",
+						"fileSystem": "query"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/DW')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Dim_Veiculo_DW')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "DW",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Dim_Veiculo.parquet",
+						"folderPath": "DW",
+						"fileSystem": "query"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/DW')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Fato_Aluguel_DW')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "DW",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "DW",
+						"fileSystem": "query"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/DW')]"
 			]
 		}
 	]

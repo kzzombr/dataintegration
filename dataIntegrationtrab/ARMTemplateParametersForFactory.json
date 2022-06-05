@@ -5,22 +5,31 @@
 		"factoryName": {
 			"value": "dataIntegrationtrab"
 		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
 		"DLIngestion_accountKey": {
+			"value": ""
+		},
+		"DW_accountKey": {
+			"value": ""
+		},
+		"MySql1_connectionString": {
 			"value": ""
 		},
 		"carloca_connectionString": {
 			"value": ""
 		},
-		"carloca2_connectionString": {
-			"value": ""
-		},
 		"indicadorTendencias_connectionString": {
 			"value": ""
 		},
-		"masteruber_connectionString": {
-			"value": ""
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://kenzostorage123.dfs.core.windows.net"
 		},
 		"DLIngestion_properties_typeProperties_url": {
+			"value": "https://kenzostorage123.dfs.core.windows.net"
+		},
+		"DW_properties_typeProperties_url": {
 			"value": "https://kenzostorage123.dfs.core.windows.net"
 		}
 	}

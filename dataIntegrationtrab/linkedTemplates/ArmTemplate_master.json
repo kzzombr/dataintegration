@@ -4,40 +4,52 @@
 	"parameters": {
 		"factoryName": {
 			"type": "string",
-			"metadata": "Nome do Data Factory",
+			"metadata": "Data Factory name",
 			"defaultValue": "dataIntegrationtrab"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
 		},
 		"DLIngestion_accountKey": {
 			"type": "secureString",
-			"metadata": "Cadeia de caracteres segura para 'accountKey' de 'DLIngestion'"
+			"metadata": "Secure string for 'accountKey' of 'DLIngestion'"
+		},
+		"DW_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'DW'"
+		},
+		"MySql1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'MySql1'"
 		},
 		"carloca_connectionString": {
 			"type": "secureString",
-			"metadata": "Cadeia de caracteres segura para 'connectionString' de 'carloca'"
-		},
-		"carloca2_connectionString": {
-			"type": "secureString",
-			"metadata": "Cadeia de caracteres segura para 'connectionString' de 'carloca2'"
+			"metadata": "Secure string for 'connectionString' of 'carloca'"
 		},
 		"indicadorTendencias_connectionString": {
 			"type": "secureString",
-			"metadata": "Cadeia de caracteres segura para 'connectionString' de 'indicadorTendencias'"
+			"metadata": "Secure string for 'connectionString' of 'indicadorTendencias'"
 		},
-		"masteruber_connectionString": {
-			"type": "secureString",
-			"metadata": "Cadeia de caracteres segura para 'connectionString' de 'masteruber'"
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://kenzostorage123.dfs.core.windows.net"
 		},
 		"DLIngestion_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://kenzostorage123.dfs.core.windows.net"
 		},
+		"DW_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://kenzostorage123.dfs.core.windows.net"
+		},
 		"containerUri": {
 			"type": "string",
-			"metadata": "URI para a conta de armazenamento contendo os modelos do ARM vinculados"
+			"metadata": "URI to storage account containing linked ARM templates"
 		},
 		"containerSasToken": {
 			"type": "string",
-			"metadata": "Token SAS para a conta de armazenamento contendo modelos do ARM vinculados"
+			"metadata": "Sas token to storage account containing linked ARM templates"
 		}
 	},
 	"variables": {
@@ -58,27 +70,56 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"AzureDataLakeStorage1_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					},
 					"DLIngestion_accountKey": {
 						"value": "[parameters('DLIngestion_accountKey')]"
+					},
+					"DW_accountKey": {
+						"value": "[parameters('DW_accountKey')]"
+					},
+					"MySql1_connectionString": {
+						"value": "[parameters('MySql1_connectionString')]"
 					},
 					"carloca_connectionString": {
 						"value": "[parameters('carloca_connectionString')]"
 					},
-					"carloca2_connectionString": {
-						"value": "[parameters('carloca2_connectionString')]"
-					},
 					"indicadorTendencias_connectionString": {
 						"value": "[parameters('indicadorTendencias_connectionString')]"
 					},
-					"masteruber_connectionString": {
-						"value": "[parameters('masteruber_connectionString')]"
+					"AzureDataLakeStorage1_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
 					},
 					"DLIngestion_properties_typeProperties_url": {
 						"value": "[parameters('DLIngestion_properties_typeProperties_url')]"
+					},
+					"DW_properties_typeProperties_url": {
+						"value": "[parameters('DW_properties_typeProperties_url')]"
 					}
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "dataIntegrationtrab_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'dataIntegrationtrab_ArmTemplate_0')]"
+			]
 		}
 	]
 }
