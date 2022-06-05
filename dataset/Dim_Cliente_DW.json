@@ -11,8 +11,8 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"fileName": "dim_cliente",
-				"folderPath": "organization",
-				"fileSystem": "outro"
+				"folderPath": "DW",
+				"fileSystem": "query"
 			},
 			"compressionCodec": "snappy"
 		},
