@@ -176,7 +176,7 @@
 					"name": "join6"
 				},
 				{
-					"name": "select1"
+					"name": "SelectFato"
 				}
 			],
 			"scriptLines": [
@@ -458,7 +458,7 @@
 				"          Vl_Total",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select1",
+				"     skipDuplicateMapOutputs: true) ~> SelectFato",
 				"SelectCliAge sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",
