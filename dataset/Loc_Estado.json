@@ -1,0 +1,34 @@
+{
+	"name": "Loc_Estado",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DLIngestion",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "loc_estado",
+				"folderPath": "organization",
+				"fileSystem": "outro"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "Cd_Estado",
+				"type": "INT32"
+			},
+			{
+				"name": "Nm_Estado",
+				"type": "UTF8"
+			},
+			{
+				"name": "Sigla_Estado",
+				"type": "UTF8"
+			}
+		]
+	}
+}
