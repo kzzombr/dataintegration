@@ -186,7 +186,7 @@
 						"parameters": {
 							"container": "outro",
 							"folder": "organization",
-							"file": "loc_pedido_locacao"
+							"file": "loc_pedido_locacao.parquet"
 						}
 					}
 				]
@@ -249,7 +249,7 @@
 						"parameters": {
 							"container": "outro",
 							"folder": "organization",
-							"file": "loc_modelo"
+							"file": "loc_modelo.parquet"
 						}
 					}
 				]
@@ -312,7 +312,7 @@
 						"parameters": {
 							"container": "outro",
 							"folder": "organization",
-							"file": "loc_item_locacao"
+							"file": "loc_item_locacao.parquet"
 						}
 					}
 				]
@@ -375,7 +375,7 @@
 						"parameters": {
 							"container": "outro",
 							"folder": "organization",
-							"file": "loc_funcionario"
+							"file": "loc_funcionario.parquet"
 						}
 					}
 				]
@@ -501,7 +501,7 @@
 						"parameters": {
 							"container": "outro",
 							"folder": "organization",
-							"file": "loc_cliente"
+							"file": "loc_cliente.parquet"
 						}
 					}
 				]
@@ -564,7 +564,7 @@
 						"parameters": {
 							"container": "outro",
 							"folder": "organization",
-							"file": "loc_cidade"
+							"file": "loc_cidade.parquet"
 						}
 					}
 				]
@@ -627,7 +627,7 @@
 						"parameters": {
 							"container": "outro",
 							"folder": "organization",
-							"file": "loc_agencia"
+							"file": "loc_agencia.parquet"
 						}
 					}
 				]
