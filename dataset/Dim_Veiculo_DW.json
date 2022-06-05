@@ -1,0 +1,21 @@
+{
+	"name": "Dim_Veiculo_DW",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DW",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Dim_Veiculo.parquet",
+				"folderPath": "DW",
+				"fileSystem": "query"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
