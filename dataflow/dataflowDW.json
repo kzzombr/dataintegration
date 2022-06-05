@@ -100,6 +100,34 @@
 						"type": "DatasetReference"
 					},
 					"name": "DimAgencia"
+				},
+				{
+					"dataset": {
+						"referenceName": "Dim_Funcionario_DW",
+						"type": "DatasetReference"
+					},
+					"name": "DimFuncionario"
+				},
+				{
+					"dataset": {
+						"referenceName": "Dim_Veiculo_DW",
+						"type": "DatasetReference"
+					},
+					"name": "DimVeiculo"
+				},
+				{
+					"dataset": {
+						"referenceName": "Dim_Tempo_DW",
+						"type": "DatasetReference"
+					},
+					"name": "DimTempo"
+				},
+				{
+					"dataset": {
+						"referenceName": "Fato_Aluguel_DW",
+						"type": "DatasetReference"
+					},
+					"name": "FatoAluguel"
 				}
 			],
 			"transformations": [
@@ -116,7 +144,7 @@
 					"name": "SelectCidEst"
 				},
 				{
-					"name": "SelectFunc"
+					"name": "SelectDimFunc"
 				},
 				{
 					"name": "SelectVeic"
@@ -345,7 +373,7 @@
 				"          Vl_Perc_Comissao",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> SelectFunc",
+				"     skipDuplicateMapOutputs: true) ~> SelectDimFunc",
 				"Veiculo select(mapColumn(",
 				"          Nr_Placa,",
 				"          Nr_Chassis,",
@@ -484,7 +512,39 @@
 				"     preCommands: [],",
 				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> DimAgencia"
+				"     skipDuplicateMapOutputs: true) ~> DimAgencia",
+				"SelectDimFunc sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> DimFuncionario",
+				"SelectDimVeiculo sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> DimVeiculo",
+				"TratamentoTempo sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> DimTempo",
+				"SelectFato sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> FatoAluguel"
 			]
 		}
 	}
