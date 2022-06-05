@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "dim_cliente",
+				"fileName": "dim_agencia",
 				"folderPath": "DW",
 				"fileSystem": "query"
 			},
