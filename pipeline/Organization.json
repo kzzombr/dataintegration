@@ -108,7 +108,12 @@
 				"inputs": [
 					{
 						"referenceName": "ParquetIngestion",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_tp_automovel.parquet"
+						}
 					}
 				],
 				"outputs": [
@@ -116,9 +121,9 @@
 						"referenceName": "ParquetIngestion",
 						"type": "DatasetReference",
 						"parameters": {
-							"container": "ingestion",
-							"folder": "carloca",
-							"file": "loc_tp_automovel.parquet"
+							"container": "outro",
+							"folder": "organization",
+							"file": "loc_tp_automovel"
 						}
 					}
 				]
@@ -137,7 +142,12 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "MySqlSource"
+						"type": "ParquetSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						}
 					},
 					"sink": {
 						"type": "ParquetSink",
@@ -160,10 +170,12 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "TabelaGenericaIngestion",
+						"referenceName": "ParquetIngestion",
 						"type": "DatasetReference",
 						"parameters": {
-							"tablename": "loc_pedido_locacao"
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_pedido_locacao.parquet"
 						}
 					}
 				],
@@ -172,9 +184,9 @@
 						"referenceName": "ParquetIngestion",
 						"type": "DatasetReference",
 						"parameters": {
-							"container": "ingestion",
-							"folder": "carloca",
-							"file": "loc_pedido_locacao.parquet"
+							"container": "outro",
+							"folder": "organization",
+							"file": "loc_pedido_locacao"
 						}
 					}
 				]
@@ -193,7 +205,12 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "MySqlSource"
+						"type": "ParquetSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						}
 					},
 					"sink": {
 						"type": "ParquetSink",
@@ -216,10 +233,12 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "TabelaGenericaIngestion",
+						"referenceName": "ParquetIngestion",
 						"type": "DatasetReference",
 						"parameters": {
-							"tablename": "loc_modelo"
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_modelo.parquet"
 						}
 					}
 				],
@@ -228,9 +247,9 @@
 						"referenceName": "ParquetIngestion",
 						"type": "DatasetReference",
 						"parameters": {
-							"container": "ingestion",
-							"folder": "carloca",
-							"file": "loc_modelo.parquet"
+							"container": "outro",
+							"folder": "organization",
+							"file": "loc_modelo"
 						}
 					}
 				]
@@ -249,7 +268,12 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "MySqlSource"
+						"type": "ParquetSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						}
 					},
 					"sink": {
 						"type": "ParquetSink",
@@ -272,10 +296,12 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "TabelaGenericaIngestion",
+						"referenceName": "ParquetIngestion",
 						"type": "DatasetReference",
 						"parameters": {
-							"tablename": "loc_item_locacao"
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_item_locacao.parquet"
 						}
 					}
 				],
@@ -284,9 +310,9 @@
 						"referenceName": "ParquetIngestion",
 						"type": "DatasetReference",
 						"parameters": {
-							"container": "ingestion",
-							"folder": "carloca",
-							"file": "loc_item_locacao.parquet"
+							"container": "outro",
+							"folder": "organization",
+							"file": "loc_item_locacao"
 						}
 					}
 				]
@@ -305,7 +331,12 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "MySqlSource"
+						"type": "ParquetSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						}
 					},
 					"sink": {
 						"type": "ParquetSink",
@@ -328,10 +359,12 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "TabelaGenericaIngestion",
+						"referenceName": "ParquetIngestion",
 						"type": "DatasetReference",
 						"parameters": {
-							"tablename": "loc_funcionario"
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_funcionario.parquet"
 						}
 					}
 				],
@@ -340,9 +373,9 @@
 						"referenceName": "ParquetIngestion",
 						"type": "DatasetReference",
 						"parameters": {
-							"container": "ingestion",
-							"folder": "carloca",
-							"file": "loc_funcionario.parquet"
+							"container": "outro",
+							"folder": "organization",
+							"file": "loc_funcionario"
 						}
 					}
 				]
@@ -361,7 +394,12 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "MySqlSource"
+						"type": "ParquetSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						}
 					},
 					"sink": {
 						"type": "ParquetSink",
@@ -384,10 +422,12 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "TabelaGenericaIngestion",
+						"referenceName": "ParquetIngestion",
 						"type": "DatasetReference",
 						"parameters": {
-							"tablename": "loc_estado"
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_estado.parquet"
 						}
 					}
 				],
@@ -396,9 +436,9 @@
 						"referenceName": "ParquetIngestion",
 						"type": "DatasetReference",
 						"parameters": {
-							"container": "ingestion",
-							"folder": "carloca",
-							"file": "loc_estado.parquet"
+							"container": "outro",
+							"folder": "organization",
+							"file": "loc_estado"
 						}
 					}
 				]
@@ -417,7 +457,12 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "MySqlSource"
+						"type": "ParquetSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						}
 					},
 					"sink": {
 						"type": "ParquetSink",
@@ -440,10 +485,12 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "TabelaGenericaIngestion",
+						"referenceName": "ParquetIngestion",
 						"type": "DatasetReference",
 						"parameters": {
-							"tablename": "loc_cliente"
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_cliente.parquet"
 						}
 					}
 				],
@@ -452,9 +499,9 @@
 						"referenceName": "ParquetIngestion",
 						"type": "DatasetReference",
 						"parameters": {
-							"container": "ingestion",
-							"folder": "carloca",
-							"file": "loc_cliente.parquet"
+							"container": "outro",
+							"folder": "organization",
+							"file": "loc_cliente"
 						}
 					}
 				]
@@ -473,7 +520,12 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "MySqlSource"
+						"type": "ParquetSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						}
 					},
 					"sink": {
 						"type": "ParquetSink",
@@ -496,10 +548,12 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "TabelaGenericaIngestion",
+						"referenceName": "ParquetIngestion",
 						"type": "DatasetReference",
 						"parameters": {
-							"tablename": "loc_cidade"
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_cidade.parquet"
 						}
 					}
 				],
@@ -508,9 +562,9 @@
 						"referenceName": "ParquetIngestion",
 						"type": "DatasetReference",
 						"parameters": {
-							"container": "ingestion",
-							"folder": "carloca",
-							"file": "loc_cidade.parquet"
+							"container": "outro",
+							"folder": "organization",
+							"file": "loc_cidade"
 						}
 					}
 				]
@@ -529,7 +583,12 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "MySqlSource"
+						"type": "ParquetSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						}
 					},
 					"sink": {
 						"type": "ParquetSink",
@@ -552,10 +611,12 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "TabelaGenericaIngestion",
+						"referenceName": "ParquetIngestion",
 						"type": "DatasetReference",
 						"parameters": {
-							"tablename": "loc_agencia"
+							"container": "ingestion",
+							"folder": "carloca",
+							"file": "loc_agencia.parquet"
 						}
 					}
 				],
@@ -564,9 +625,9 @@
 						"referenceName": "ParquetIngestion",
 						"type": "DatasetReference",
 						"parameters": {
-							"container": "ingestion",
-							"folder": "carloca",
-							"file": "loc_agencia.parquet"
+							"container": "outro",
+							"folder": "organization",
+							"file": "loc_agencia"
 						}
 					}
 				]
