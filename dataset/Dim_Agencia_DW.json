@@ -10,8 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "dim_agencia",
-				"folderPath": "DW",
+				"fileName": "dim_agencia.parquet",
+				"folderPath": "DW/dim_agencia",
 				"fileSystem": "query"
 			},
 			"compressionCodec": "snappy"
