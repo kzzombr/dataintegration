@@ -9,7 +9,10 @@
 						"referenceName": "Loc_Cliente",
 						"type": "DatasetReference"
 					},
-					"name": "cliente"
+					"name": "Cliente"
+				},
+				{
+					"name": "Agencia"
 				}
 			],
 			"sinks": [
@@ -41,8 +44,10 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
-				"     format: 'parquet') ~> cliente",
-				"cliente select(mapColumn(",
+				"     format: 'parquet') ~> Cliente",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false) ~> Agencia",
+				"Cliente select(mapColumn(",
 				"          Cd_cliente,",
 				"          Nm_Cliente,",
 				"          Cd_Tp_Cliente,",

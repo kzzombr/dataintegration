@@ -1,0 +1,34 @@
+{
+	"name": "Loc_Agencia",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DLIngestion",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "loc_agencia.parquet",
+				"folderPath": "organization",
+				"fileSystem": "outro"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "cd_Agencia",
+				"type": "INT32"
+			},
+			{
+				"name": "Nm_Agencia",
+				"type": "UTF8"
+			},
+			{
+				"name": "cd_Cidade",
+				"type": "INT32"
+			}
+		]
+	}
+}
