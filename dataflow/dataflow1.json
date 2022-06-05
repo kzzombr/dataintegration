@@ -12,6 +12,10 @@
 					"name": "Cliente"
 				},
 				{
+					"dataset": {
+						"referenceName": "Loc_Agencia",
+						"type": "DatasetReference"
+					},
 					"name": "Agencia"
 				}
 			],
@@ -26,11 +30,21 @@
 						"referenceName": "DLIngestion",
 						"type": "LinkedServiceReference"
 					}
+				},
+				{
+					"dataset": {
+						"referenceName": "Dim_Agencia_DW",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
 				}
 			],
 			"transformations": [
 				{
 					"name": "select1"
+				},
+				{
+					"name": "select2"
 				}
 			],
 			"scriptLines": [
@@ -45,8 +59,15 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     format: 'parquet') ~> Cliente",
-				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> Agencia",
+				"source(output(",
+				"          cd_Agencia as integer,",
+				"          Nm_Agencia as string,",
+				"          cd_Cidade as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> Agencia",
 				"Cliente select(mapColumn(",
 				"          Cd_cliente,",
 				"          Nm_Cliente,",
@@ -56,6 +77,13 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
+				"Agencia select(mapColumn(",
+				"          cd_Agencia,",
+				"          Nm_Agencia,",
+				"          cd_Cidade",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select2",
 				"select1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",
@@ -64,7 +92,15 @@
 				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     saveOrder: 1) ~> DimCliente"
+				"     saveOrder: 1) ~> DimCliente",
+				"select2 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
