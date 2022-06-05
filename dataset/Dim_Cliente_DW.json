@@ -11,7 +11,7 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"fileName": "dim_cliente.parquet",
-				"folderPath": "DW/dim_cliente",
+				"folderPath": "DW",
 				"fileSystem": "query"
 			},
 			"compressionCodec": "snappy"
