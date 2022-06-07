@@ -1,9 +1,9 @@
 {
-	"name": "IngestionTendencia",
+	"name": "IngestionCarlocaForeach",
 	"properties": {
 		"activities": [
 			{
-				"name": "Lookup_Tendencia",
+				"name": "Lookup_Carloca",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
@@ -32,7 +32,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Lookup_Tendencia",
+						"activity": "Lookup_Carloca",
 						"dependencyConditions": [
 							"Succeeded"
 						]
